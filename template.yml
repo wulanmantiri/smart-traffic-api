@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Smart Traffic Management System SAM template
+Resources:
+  StmsApi:
+    Type: AWS::Serverless::Api
+    Cors: "'*'"
+    Properties:
+      Description: Smart Traffic Management System API
+      StageName: prod
+
+  DecideTrafficLight:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: decide_traffic_light.handler
+      Runtime: python3.9
+      CodeUri: functions/
+      Description: Making decisions for smart traffic light
+      MemorySize: 128
+      Timeout: 3
+      Environment:
+        Variables:
+          DELIVERY_STREAM_NAME: PUT-S3-biItC
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AmazonKinesisFirehoseFullAccess
+      Events:
+        SmartTrafficApi:
+          Type: Api
+          Properties:
+            Path: /decide-traffic-light
+            Method: POST
+            RestApiId:
+              Ref: StmsApi
