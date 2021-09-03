@@ -18,7 +18,7 @@ To learn AWS SAM, check out the [AWS SAM documentation](https://docs.aws.amazon.
 ### CodeBuild
 - Create a build project and connect to github repository. 
 - Enable webhook to rebuild as code changes and add `PUSH` event types.
-- Select `Managed image` as environment image with `Amazon Linux 2` OS and `x86_64:3.0` image. Use or create new service role.
+- Select `Managed image` as environment image with `Amazon Linux 2` OS and `x86_64:3.0` image. Use or create new service role that allows access to your S3 bucket and CloudFormation.
 - In `additional configuration`, add `SAM_S3_BUCKET_NAME`, `CLOUDFORMATION_STACK_NAME` and `REGION` values in environment variables. Optionally, set compute to the lowest spec.
 - Leave everything as is for easy configuration.
 
