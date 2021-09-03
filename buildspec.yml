@@ -4,4 +4,8 @@ phases:
     commands:
       - echo Build started on `date`
       - sam package --template-file template.yml --output-template-file packaged.yaml --s3-bucket $SAM_S3_BUCKET_NAME
-      - sam deploy --template-file packaged.yaml --stack-name $CLOUDFORMATION_STACK_NAME --capabilities CAPABILITY_IAM --region $REGION
+      - sam deploy --template-file build/packaged.yaml --stack-name $CLOUDFORMATION_STACK_NAME --capabilities CAPABILITY_IAM --region $REGION
+artifacts:
+  base-directory: "build"
+  files:
+    - "**/*"
