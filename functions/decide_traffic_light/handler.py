@@ -28,7 +28,7 @@ def format_success_resp(response_body, status_code=200):
     }
 
 
-def handler(event, _):
+def decide_traffic_light(event, _):
     try:
         event_body = json.loads(event['body'])
         lanes = event_body['lanes']
