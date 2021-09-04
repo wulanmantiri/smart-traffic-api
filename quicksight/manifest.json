@@ -1,0 +1,12 @@
+{
+   "fileLocations":[
+      {
+         "URIPrefixes":[
+            "s3://smart-traffic-firehose/"
+         ]
+      }
+   ],
+   "globalUploadSettings":{
+      "format":"JSON"
+   }
+}

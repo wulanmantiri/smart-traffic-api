@@ -20,7 +20,7 @@ Resources:
       Timeout: 3
       Environment:
         Variables:
-          DELIVERY_STREAM_NAME: PUT-S3-biItC
+          DELIVERY_STREAM_NAME: smart-traffic-stream
       Policies:
       - AWSLambdaBasicExecutionRole
       - AmazonKinesisFirehoseFullAccess
@@ -39,7 +39,7 @@ Resources:
       PackageType: Image
       ImageUri: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/stms:latest"
       MemorySize: 10240
-      Timeout: 60
+      Timeout: 30
       Policies:
       - AWSLambdaBasicExecutionRole
       Events:

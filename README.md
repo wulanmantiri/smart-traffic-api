@@ -20,7 +20,14 @@ To learn AWS SAM, check out the [AWS SAM documentation](https://docs.aws.amazon.
 - After setup, every push to `master` in your github repository will trigger CI/CD.
 
 ### S3
-- Create an S3 bucket with the name `smart-traffic-sam`.
+- Create two S3 buckets with the name `smart-traffic-sam-<RANDOM-ID>` and `smart-traffic-firehose-<RANDOM-ID>`.
+- Leave everything as is for easy configuration.
+
+### Kinesis Firehose
+- Create a new delivery stream.
+- Set source to be `Direct PUT` and select `Amazon S3` as the destination.
+- Set the name to be `smart-traffic-stream`.
+- Choose `smart-traffic-firehose` in the S3 bucket destination settings.
 - Leave everything as is for easy configuration.
 
 ### CodeBuild
@@ -29,8 +36,15 @@ To learn AWS SAM, check out the [AWS SAM documentation](https://docs.aws.amazon.
 - Select `Managed image` as environment image with `Amazon Linux 2` OS and `x86_64:3.0` image.
 - Use or create new service role that allows full access to your S3 bucket, CloudFormation, Lambda, API Gateway, and IAM access.
 - In `additional configuration`, add the following environment variables:
-    1. key: `SAM_S3_BUCKET_NAME`, value: `smart-traffic-sam`
+    1. key: `SAM_S3_BUCKET_NAME`, value: `smart-traffic-sam-<RANDOM-ID>`
     2. key: `CLOUDFORMATION_STACK_NAME`, value: `stms-api`
     3. key: `ECR_REPO_URI`, value: `<ECR-Repo-URI from build.sh>`
 - Optionally, set compute to the lowest spec.
 - Leave everything as is for easy configuration.
+
+### Quicksight
+
+- Sign up with Standard account. Select your desired region.
+- In `Datasets`, create new dataset. Select S3 as the data source.
+- Set your data source name and upload manifest file from `quicksight/manifest.json`.
+- Choose `Connect`, then Visualize. You may have to give Amazon QuickSight explicit permissions to your S3 bucket.
