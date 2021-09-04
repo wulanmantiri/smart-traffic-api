@@ -4,7 +4,7 @@ Description: Smart Traffic Management System SAM template
 Resources:
   StmsApi:
     Type: AWS::Serverless::Api
-    Cors: "'*'"
+    Cors: '''*'''
     Properties:
       Description: Smart Traffic Management System API
       StageName: prod
@@ -22,8 +22,8 @@ Resources:
         Variables:
           DELIVERY_STREAM_NAME: PUT-S3-biItC
       Policies:
-        - AWSLambdaBasicExecutionRole
-        - AmazonKinesisFirehoseFullAccess
+      - AWSLambdaBasicExecutionRole
+      - AmazonKinesisFirehoseFullAccess
       Events:
         DecideTrafficLightApi:
           Type: Api
@@ -37,10 +37,11 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       PackageType: Image
+      ImageUri: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/stms:latest"
       MemorySize: 10240
       Timeout: 60
       Policies:
-        - AWSLambdaBasicExecutionRole
+      - AWSLambdaBasicExecutionRole
       Events:
         DetectVehiclesApi:
           Type: Api
@@ -49,7 +50,3 @@ Resources:
             Method: POST
             RestApiId:
               Ref: StmsApi
-    Metadata:
-      DockerTag: latest
-      DockerContext: ./containers/detect_vehicles
-      Dockerfile: Dockerfile
