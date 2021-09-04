@@ -24,7 +24,7 @@ To learn AWS SAM, check out the [AWS SAM documentation](https://docs.aws.amazon.
 - Leave everything as is for easy configuration.
 
 ### CodeBuild
-- Create a build project and connect to github repository. 
+- Create a build project with the name `smart-traffic-api-build` and connect to your github repository.
 - Enable webhook to rebuild as code changes and add `PUSH` event types.
 - Select `Managed image` as environment image with `Amazon Linux 2` OS and `x86_64:3.0` image.
 - Use or create new service role that allows full access to your S3 bucket, CloudFormation, Lambda, API Gateway, and IAM access.

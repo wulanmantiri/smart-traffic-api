@@ -3,14 +3,14 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - sam package \
-        --template-file template_build.yml \
-        --output-template-file packaged.yaml \
-        --s3-bucket $SAM_S3_BUCKET_NAME \
+      - sam package 
+        --template-file template_build.yml 
+        --output-template-file packaged.yaml 
+        --s3-bucket $SAM_S3_BUCKET_NAME 
         --image-repository $ECR_REPO_URI
-      - sam deploy \
-        --template-file packaged.yaml \
-        --stack-name $CLOUDFORMATION_STACK_NAME \
-        --capabilities CAPABILITY_IAM \
-        --region $AWS_REGION \
+      - sam deploy 
+        --template-file packaged.yaml 
+        --stack-name $CLOUDFORMATION_STACK_NAME 
+        --capabilities CAPABILITY_IAM 
+        --region $AWS_REGION 
         --image-repository $ECR_REPO_URI
