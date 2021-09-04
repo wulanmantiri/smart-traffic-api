@@ -4,9 +4,9 @@ Description: Smart Traffic Management System SAM template
 Resources:
   StmsApi:
     Type: AWS::Serverless::Api
-    Cors: "'*'"
     Properties:
       Description: Smart Traffic Management System API
+      Cors: "'*'"
       StageName: prod
 
   DecideTrafficLight:
