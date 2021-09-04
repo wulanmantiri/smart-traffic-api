@@ -6,8 +6,12 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       Description: Smart Traffic Management System API
-      Cors: "'*'"
-      StageName: prod
+      Cors:
+        AllowMethods: "'POST'"
+        AllowHeaders: "'Content-Type'"
+        AllowOrigin: "'*'"
+        AllowCredentials: true
+      StageName: Prod
 
   DecideTrafficLight:
     Type: AWS::Serverless::Function
@@ -25,7 +29,7 @@ Resources:
         - AWSLambdaBasicExecutionRole
         - AmazonKinesisFirehoseFullAccess
       Events:
-        DecideTrafficLightApi:
+        DecideTrafficLightEvent:
           Type: Api
           Properties:
             Path: /decide-traffic-light
@@ -42,7 +46,7 @@ Resources:
       Policies:
         - AWSLambdaBasicExecutionRole
       Events:
-        DetectVehiclesApi:
+        DetectVehiclesEvent:
           Type: Api
           Properties:
             Path: /detect-vehicles
