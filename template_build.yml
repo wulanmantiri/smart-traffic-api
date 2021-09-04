@@ -10,7 +10,6 @@ Resources:
         AllowMethods: "'POST'"
         AllowHeaders: "'Content-Type'"
         AllowOrigin: "'*'"
-        AllowCredentials: true
       StageName: Prod
 
   DecideTrafficLight:
