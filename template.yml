@@ -23,6 +23,12 @@ Resources:
       Timeout: 3
       Policies:
         - AWSLambdaBasicExecutionRole
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - quicksight:GenerateEmbedUrlForAnonymousUser
+              Resource: '*'
       Environment:
         Variables:
           AWS_ACCOUNT_ID: 559497364474
