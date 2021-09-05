@@ -3,6 +3,7 @@
 ## Getting Started
 
 1. Install and configure [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html), [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html), and [Docker](https://docs.docker.com/get-docker/).
+2. Install Python 3.9.
 2. Clone the repository and enter the project directory with `cd smart-traffic-api`.
 3. Run Docker and build the dependencies with `sam build --cached --parallel`.
 4. Run the api with `sam local start-api -p 8000`.
@@ -44,7 +45,9 @@ To learn AWS SAM, check out the [AWS SAM documentation](https://docs.aws.amazon.
 
 ### Quicksight
 
-- Sign up with Standard account. Select your desired region.
+- Sign up with Enterprise account. Subscribe to Capacity Planning plan.
+- Give Amazon QuickSight explicit permissions to your S3 bucket (`smart-traffic-firehose-<RANDOM-ID>`). Select `us-east-1` region.
 - In `Datasets`, create new dataset. Select S3 as the data source.
-- Set your data source name and upload manifest file from `quicksight/manifest.json`.
-- Choose `Connect`, then Visualize. You may have to give Amazon QuickSight explicit permissions to your S3 bucket.
+- Set your data source name.
+- Modify the S3 bucket name in `quicksight/manifest.json` and upload it as the manifest file.
+- Choose `Connect` then `Visualize`.

@@ -2,7 +2,7 @@
    "fileLocations":[
       {
          "URIPrefixes":[
-            "s3://smart-traffic-firehose/"
+            "s3://smart-traffic-firehose-<RANDOM-ID>/"
          ]
       }
    ],

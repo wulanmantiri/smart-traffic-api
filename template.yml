@@ -10,8 +10,30 @@ Resources:
         AllowMethods: "'POST'"
         AllowHeaders: "'Content-Type'"
         AllowOrigin: "'*'"
-        AllowCredentials: true
       StageName: Prod
+
+  GetDashboardEmbedUrl:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: handler.get_dashboard_embed_url
+      Runtime: python3.9
+      CodeUri: functions/get_dashboard_embed_url/
+      Description: Get Quicksight dashboard embed url for web
+      MemorySize: 128
+      Timeout: 3
+      Policies:
+        - AWSLambdaBasicExecutionRole
+      Environment:
+        Variables:
+          AWS_ACCOUNT_ID: 559497364474
+      Events:
+        GetDashboardEmbedUrlEvent:
+          Type: Api
+          Properties:
+            Path: /dashboard-embed-url
+            Method: GET
+            RestApiId:
+              Ref: StmsApi
 
   DecideTrafficLight:
     Type: AWS::Serverless::Function
