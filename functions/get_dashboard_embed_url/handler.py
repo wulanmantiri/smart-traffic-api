@@ -29,13 +29,8 @@ def format_success_resp(response_body, status_code=200):
 
 
 def get_dashboard_embed_url(event, _):
-    try:
-        query = event.get('queryStringParameters', {})
-        dashboard_id = query['dashboard_id']
-    except KeyError as e:
-        return format_error_resp(f'Query param [{str(e)}] is required.')
-
     account_id = os.environ["AWS_ACCOUNT_ID"]
+    dashboard_id = os.environ["DASHBOARD_ID"]
     qs_client = boto3.client('quicksight', region_name="us-east-1")
     try:
         response = qs_client.get_dashboard_embed_url(

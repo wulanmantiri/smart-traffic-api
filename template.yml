@@ -34,6 +34,7 @@ Resources:
       Environment:
         Variables:
           AWS_ACCOUNT_ID: 559497364474
+          DASHBOARD_ID: 9a9d5d81-bc69-4c74-ac39-4eb34919ccca
       Events:
         GetDashboardEmbedUrlEvent:
           Type: Api
