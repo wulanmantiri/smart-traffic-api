@@ -27,11 +27,13 @@ Resources:
           Statement:
             - Effect: Allow
               Action:
-                - quicksight:GenerateEmbedUrlForAnonymousUser
-              Resource: '*'
+                - quicksight:GetDashboardEmbedUrl
+                - quickSight:GetAnonymousUserEmbedUrl
+              Resource:
+                - arn:aws:quicksight:us-east-1:559497364474:dashboard/9a9d5d81-bc69-4c74-ac39-4eb34919ccca
       Environment:
         Variables:
-          AWS_ACCOUNT_ID: !Sub ${AWS::AccountId}
+          AWS_ACCOUNT_ID: 559497364474
       Events:
         GetDashboardEmbedUrlEvent:
           Type: Api
