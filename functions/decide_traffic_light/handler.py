@@ -32,7 +32,7 @@ def decide_traffic_light(event, _):
     try:
         event_body = json.loads(event['body'])
         lanes = event_body['lanes']
-        green_lane_history = event_body['green_lane_history']
+        history = event_body['history']
         config = event_body['config']
     except KeyError as e:
         return format_error_resp(f'Payload [{str(e)}] is required.')
@@ -52,7 +52,7 @@ def decide_traffic_light(event, _):
     score_details = []
     for lane_id in range(num_of_lanes):
         try:
-            prob = (green_lane_history.index(lane_id) + 1) / num_of_lanes
+            prob = (history.index(lane_id) + 1) / (num_of_lanes + 1)
         except:
             prob = 1
 
@@ -75,10 +75,6 @@ def decide_traffic_light(event, _):
         'actual_time_details': f'{green_lane_count} ✕ ({ratio_time}/{ratio_vehicle}) = {actual_green_time}'
     }
 
-    if green_lane in green_lane_history:
-        green_lane_history.remove(green_lane)
-    green_lane_history.insert(0, green_lane)
-
     # Store data in S3 via Kinesis Firehose
     if enable_stream:
         firehose_client = boto3.client('firehose')
@@ -95,6 +91,6 @@ def decide_traffic_light(event, _):
     response_body = {
         'score_details': score_details,
         'green': green_lane_details,
-        'green_lane_history': green_lane_history,
+        'history': history,
     }
     return format_success_resp(response_body)
