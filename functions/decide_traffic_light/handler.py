@@ -56,7 +56,7 @@ def decide_traffic_light(event, _):
         except:
             prob = 1
 
-        vehicle_count = lanes[lane_id]['count']
+        vehicle_count = lanes[lane_id]['total_count']
         score = prob * vehicle_count
         if score > max_score or (score == max_score and prob > max_prob):
             max_score = score
@@ -65,7 +65,7 @@ def decide_traffic_light(event, _):
 
         score_details.append(f'{prob:.2f} ✕ {vehicle_count} = {score:.2f}')
 
-    green_lane_count = lanes[green_lane]['count']
+    green_lane_count = lanes[green_lane]['total_count']
     actual_green_time = round(green_lane_count * ratio_time / ratio_vehicle)
     green_time = max([actual_green_time, min_green_time])
     green_time = min([green_time, max_green_time])

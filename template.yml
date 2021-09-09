@@ -1,13 +1,13 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Smart Traffic Management System SAM template
+Description: Smart Traffic Lights SAM template
 Resources:
-  StmsApi:
+  STLApi:
     Type: AWS::Serverless::Api
     Properties:
-      Description: Smart Traffic Management System API
+      Description: Smart Traffic Lights API
       Cors:
-        AllowMethods: "'POST'"
+        AllowMethods: "'POST,GET,OPTIONS'"
         AllowHeaders: "'Content-Type'"
         AllowOrigin: "'*'"
       StageName: Prod
@@ -42,7 +42,7 @@ Resources:
             Path: /dashboard-embed-url
             Method: GET
             RestApiId:
-              Ref: StmsApi
+              Ref: STLApi
 
   DecideTrafficLight:
     Type: AWS::Serverless::Function
@@ -50,7 +50,7 @@ Resources:
       Handler: handler.decide_traffic_light
       Runtime: python3.9
       CodeUri: functions/decide_traffic_light/
-      Description: Making decisions for smart traffic light
+      Description: Making decisions for smart traffic lights
       MemorySize: 128
       Timeout: 3
       Environment:
@@ -66,12 +66,13 @@ Resources:
             Path: /decide-traffic-light
             Method: POST
             RestApiId:
-              Ref: StmsApi
+              Ref: STLApi
 
   DetectVehicles:
     Type: AWS::Serverless::Function
     Properties:
       PackageType: Image
+      Description: Detect vehicles based on YOLOv4 model
       MemorySize: 10240
       Timeout: 60
       Policies:
@@ -83,7 +84,7 @@ Resources:
             Path: /detect-vehicles
             Method: POST
             RestApiId:
-              Ref: StmsApi
+              Ref: STLApi
     Metadata:
       DockerTag: latest
       DockerContext: ./containers/detect_vehicles
