@@ -30,11 +30,11 @@ Resources:
                 - quicksight:GetDashboardEmbedUrl
                 - quickSight:GetAnonymousUserEmbedUrl
               Resource:
-                - arn:aws:quicksight:us-east-1:559497364474:dashboard/9a9d5d81-bc69-4c74-ac39-4eb34919ccca
+                - arn:aws:quicksight:us-east-1:559497364474:dashboard/16c849b6-a3a1-48b4-aff4-7c736168a4c5
       Environment:
         Variables:
           AWS_ACCOUNT_ID: 559497364474
-          DASHBOARD_ID: 9a9d5d81-bc69-4c74-ac39-4eb34919ccca
+          DASHBOARD_ID: 16c849b6-a3a1-48b4-aff4-7c736168a4c5
       Events:
         GetDashboardEmbedUrlEvent:
           Type: Api
