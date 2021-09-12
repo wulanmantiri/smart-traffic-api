@@ -3,7 +3,7 @@
 ## Getting Started
 
 1. Install and configure [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html), [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html), and [Docker](https://docs.docker.com/get-docker/).
-2. Install Python 3.9.
+2. Install Python 3.9 (or change the runtime in `template.yml` to Python version in your PC).
 3. Clone the repository and enter the project directory with `cd smart-traffic-api`.
 4. Run Docker and build the dependencies with `sam build --cached --parallel` from `template.yml`.
 5. Run the api with `sam local start-api -p 8000`.
