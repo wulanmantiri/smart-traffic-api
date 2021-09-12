@@ -73,7 +73,7 @@ Resources:
     Properties:
       PackageType: Image
       Description: Detect vehicles based on YOLOv4 model
-      ImageUri: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/smart-traffic-lights:latest"
+      ImageUri: 559497364474.dkr.ecr.ap-southeast-1.amazonaws.com/smart-traffic-lights:latest
       MemorySize: 10240
       Timeout: 30
       Policies:
