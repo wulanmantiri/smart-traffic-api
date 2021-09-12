@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Smart Traffic Lights SAM template
+Description: Smart Traffic Lights template
 Resources:
   STLApi:
     Type: AWS::Serverless::Api
@@ -73,7 +73,7 @@ Resources:
     Properties:
       PackageType: Image
       Description: Detect vehicles based on YOLOv4 model
-      ImageUri: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/stms:latest"
+      ImageUri: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/smart-traffic-lights:latest"
       MemorySize: 10240
       Timeout: 30
       Policies:

@@ -1,7 +1,7 @@
 account=$(aws sts get-caller-identity --query Account --output text)
 region=$(aws configure get region)
 
-image_name="stms"
+image_name="smart-traffic-lights"
 ecr_image_version="latest"
 ecr_image_name="${account}.dkr.ecr.${region}.amazonaws.com/${image_name}:${ecr_image_version}"
 echo "ECR Repo URI:" $ecr_image_name

@@ -40,14 +40,13 @@ def draw_bbox(img, bbox, labels, confidence, colors=None, write_conf=False):
     return img
 
 
-def detect_common_objects(image, confidence=0.1, nms_thresh=0.5, size=1280):
+def detect_common_objects(image, confidence=0.21, nms_thresh=0.5, size=416):
     """A method to detect common objects (with most suitable default params)
     Args:
         image: A colour image in a numpy array
         confidence: A value to filter out objects recognised to a lower confidence score
         nms_thresh: An NMS value
         size: A blob size for width and height
-        enable_gpu: A boolean to set whether the GPU will be used
     """
 
     height, width = image.shape[:2]
