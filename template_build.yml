@@ -78,6 +78,7 @@ Resources:
       Timeout: 30
       Policies:
       - AWSLambdaBasicExecutionRole
+      - EC2InstanceProfileForImageBuilderECRContainerBuilds
       Events:
         DetectVehiclesEvent:
           Type: Api

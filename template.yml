@@ -74,9 +74,10 @@ Resources:
       PackageType: Image
       Description: Detect vehicles based on YOLOv4 model
       MemorySize: 10240
-      Timeout: 60
+      Timeout: 30
       Policies:
         - AWSLambdaBasicExecutionRole
+        - EC2InstanceProfileForImageBuilderECRContainerBuilds
       Events:
         DetectVehiclesEvent:
           Type: Api
