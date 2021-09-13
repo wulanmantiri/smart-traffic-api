@@ -1,16 +1,20 @@
 account=$(aws sts get-caller-identity --query Account --output text)
 region=$(aws configure get region)
 
+# Configuration
 image_name="smart-traffic-lights"
 ecr_image_version="latest"
-ecr_image_name="${account}.dkr.ecr.${region}.amazonaws.com/${image_name}:${ecr_image_version}"
-echo "ECR Repo URI:" $ecr_image_name
+
+ecr_repo="${account}.dkr.ecr.${region}.amazonaws.com/${image_name}"
+ecr_image_name="${ecr_repo}:${ecr_image_version}"
+echo "ECR Image URI:" $ecr_image_name
 
 # If the repository doesn't exist in ECR, create it.
-aws ecr describe-repositories --repository-names "${image_name}" > /dev/null 2>&1
+aws ecr describe-repositories --repository-names ${image_name} > /dev/null 2>&1
 if [ $? -ne 0 ]
 then
-    aws ecr create-repository --repository-name "${image_name}" --image-scanning-configuration scanOnPush=true
+    aws ecr create-repository --repository-name ${image_name} --image-scanning-configuration scanOnPush=true
+    aws ecr set-repository-policy --repository-name ${image_name} --policy-text file://ecr_policy.json
 fi
 
 # Get the login command from ECR and execute it directly

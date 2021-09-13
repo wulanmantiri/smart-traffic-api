@@ -16,8 +16,9 @@ To learn AWS SAM, check out the [AWS SAM documentation](https://docs.aws.amazon.
 ### Instructions
 - You will need an AWS account.
 - Modify the variables in `ecr_image.sh`.
-- Run `chmod 755 ecr_image.sh` and `./ecr_image.sh`. Copy the ECR Repo URI. This will push SAM local image to ECR manually (might take some time).
+- Run `chmod 755 ecr_image.sh` and `./ecr_image.sh`. Copy the ECR Image URI. This will push SAM local image to ECR manually (might take some time).
 - SAM template used for deployment is `template_build.yml`.
+- Modify `ImageUri` in `DetectVehicles` resource with the copied Image URI.
 - Setup AWS services by following the guidelines below.
 - After setup, every push to `master` in your github repository will trigger CI/CD.
 
@@ -40,7 +41,7 @@ To learn AWS SAM, check out the [AWS SAM documentation](https://docs.aws.amazon.
 - In `additional configuration`, add the following environment variables:
     1. key: `SAM_S3_BUCKET_NAME`, value: `smart-traffic-sam-<RANDOM-ID>`
     2. key: `CLOUDFORMATION_STACK_NAME`, value: `stl-api`
-    3. key: `ECR_REPO_URI`, value: `<ECR-Repo-URI from build.sh>`
+    3. key: `ECR_REPO_URI`, value: `<ECR-Image-URI from ecr_image.sh>`
 - Optionally, set compute to the lowest spec.
 - Leave everything as is for easy configuration.
 
@@ -50,7 +51,7 @@ To learn AWS SAM, check out the [AWS SAM documentation](https://docs.aws.amazon.
 - Give Amazon QuickSight explicit permissions to your S3 bucket (`smart-traffic-firehose-<RANDOM-ID>`). Select `us-east-1` region.
 - In `Datasets`, create new dataset. Select S3 as the data source.
 - Set your data source name.
-- Modify the S3 bucket name in `quicksight/manifest.json` and upload it as the manifest file.
+- Modify the S3 bucket name in `quicksight_manifest.json` and upload it as the manifest file.
 - Choose `Connect` then `Visualize`.
 
 #### Embedded Dashboard

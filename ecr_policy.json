@@ -1,0 +1,20 @@
+{
+  "Version": "2008-10-17",
+  "Statement": [
+    {
+      "Sid": "LambdaECRImageRetrievalPolicy",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Action": [
+        "ecr:BatchGetImage",
+        "ecr:DeleteRepositoryPolicy",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:GetRepositoryPolicy",
+        "ecr:InitiateLayerUpload",
+        "ecr:SetRepositoryPolicy"
+      ]
+    }
+  ]
+}
