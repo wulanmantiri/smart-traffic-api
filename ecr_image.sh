@@ -4,6 +4,7 @@ region=$(aws configure get region)
 # Configuration
 image_name="smart-traffic-lights"
 ecr_image_version="latest"
+sam_build_image_name="detectvehicles:rapid-1.30.0" # modify the created Docker image from `sam build`
 
 ecr_repo="${account}.dkr.ecr.${region}.amazonaws.com/${image_name}"
 ecr_image_name="${ecr_repo}:${ecr_image_version}"
@@ -19,9 +20,6 @@ fi
 
 # Get the login command from ECR and execute it directly
 aws ecr get-login-password | docker login --username AWS --password-stdin ${account}.dkr.ecr.${region}.amazonaws.com
-
-# Modify the created Docker image from `sam build`
-sam_build_image_name="detectvehicles:rapid-1.30.0"
 
 docker tag ${sam_build_image_name} ${ecr_image_name}
 docker push ${ecr_image_name}

@@ -39,22 +39,35 @@ def decide_traffic_light(event, _):
     except Exception as e:
         return format_error_resp(f'Error {str(e)} occurred.')
 
+    num_of_lanes = len(lanes)
+    consecutive_red_turns = event_body.get('consecutive_red_turns', [0] * num_of_lanes)
+
     min_green_time = config.get('min_green_time', 10)
     max_green_time = config.get('max_green_time', 60)
     ratio_time = config.get('ratio_time', 1)
     ratio_vehicle = config.get('ratio_vehicle', 1)
     enable_stream = config.get('enable_stream', True)
 
+    # Traffic lanes that exceed max consecutive red light threshold and have at least 1 queueing vehicle
+    # Current threshold = num of lanes
+    prioritized_lanes = [
+        lane_id
+        for lane_id, red_turns in enumerate(consecutive_red_turns)
+        if red_turns >= num_of_lanes and lanes[lane_id]['total_count'] > 0
+    ]
+
     max_score = 0
     max_prob = 0
     green_lane = None
-    num_of_lanes = len(lanes)
     score_details = []
     for lane_id in range(num_of_lanes):
+        # Calculate probability
         try:
             prob = (history.index(lane_id) + 1) / (num_of_lanes + 1)
         except:
             prob = 1
+        if len(prioritized_lanes) > 0 and lane_id not in prioritized_lanes:
+            prob = 0
 
         vehicle_count = lanes[lane_id]['total_count']
         score = prob * vehicle_count
@@ -72,8 +85,12 @@ def decide_traffic_light(event, _):
     green_lane_details = {
         'lane': green_lane,
         'calc_time': green_time,
-        'actual_time_details': f'{green_lane_count} ✕ ({ratio_time}/{ratio_vehicle}) = {actual_green_time}'
+        'actual_time_details': f'{green_lane_count} ✕ ({ratio_time}/{ratio_vehicle}) = {actual_green_time}',
     }
+
+    new_consecutive_red_turns = []
+    for lane_id, red_turns in enumerate(consecutive_red_turns):
+        new_consecutive_red_turns.append(red_turns + 1 if lane_id != green_lane else 0)
 
     # Store data in S3 via Kinesis Firehose
     if enable_stream:
@@ -92,5 +109,6 @@ def decide_traffic_light(event, _):
         'score_details': score_details,
         'green': green_lane_details,
         'history': history,
+        'consecutive_red_turns': new_consecutive_red_turns,
     }
     return format_success_resp(response_body)
